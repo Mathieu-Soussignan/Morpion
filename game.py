@@ -16,7 +16,7 @@ class Game:
             
             while True:
                 try:
-                    row, col = self.get_coordinates()
+                    row, col = self.recuperer_coordonnees()
                     if self.grid.place_mark(row, col, player.symbol):
                         break
                     else:
@@ -34,13 +34,13 @@ class Game:
                 print("Match nul !")
                 break
 
-            self.current_player = (self.current_player + 1)
+            self.current_player = (self.current_player + 1) % 2
 
     def recuperer_coordonnees(self):
         while True:
             try:
                 row = int(input("Entrez le numéro de ligne (0-2) : "))
-                col = int(input("Entrez le numéro de colonne (0-2 : )"))
+                col = int(input("Entrez le numéro de colonne (0-2) : "))
                 if 0 <= row <= 2 and 0 <= col <= 2:
                     return row, col
                 else:

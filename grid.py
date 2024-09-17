@@ -1,35 +1,60 @@
-
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 from matplotlib.lines import Line2D
+import numpy as np
 
-#plt.figure()
-fig, ax = plt.subplots(1,1, figsize = (8,8))
-ax.plot([1/3, 1/3], [0, 1], 'k')  
-ax.plot([2/3, 2/3], [0, 1], 'k')  
-ax.plot([0, 1], [1/3, 1/3], 'k')  
-ax.plot([0, 1], [2/3, 2/3], 'k')  
-ax.axis("equal")
-symbols = []
+class Grid:
+    def __init__(self):
+        self.grid = np.full((3, 3), ' ')
+        self.fig, self.ax = plt.subplots(1, 1, figsize=(8, 8))
+        self.setup_grid()
+        self.symbols = []
 
-def drawacircle(position):
-    Osym = Circle(position, 0.1, color='b', fill=False, linewidth=2)
-    ax.add_artist(Osym) #stack overflow dis que ca marche
-    symbols.append(Osym)
+    def setup_grid(self):
+        self.ax.plot([1/3, 1/3], [0, 1], 'k')
+        self.ax.plot([2/3, 2/3], [0, 1], 'k')
+        self.ax.plot([0, 1], [1/3, 1/3], 'k')
+        self.ax.plot([0, 1], [2/3, 2/3], 'k')
+        self.ax.axis("equal")
+        self.ax.set_xlim((0, 1))
+        self.ax.set_ylim((0, 1))
+        self.ax.set_xticks([])
+        self.ax.set_yticks([])
 
-def draxanx(position):
-    x, y = position
-    Cross1 = Line2D([x - 0.1, x + 0.1], [y - 0.1, y + 0.1], color='r', linewidth=3)
-    Cross2 = Line2D([x - 0.1, x + 0.1], [y + 0.1, y - 0.1], color='r', linewidth=3)
-    ax.add_artist(Cross1)
-    ax.add_artist(Cross2)
-    symbols.append(Cross1)
-    symbols.append(Cross2)
-drawacircle((0.85, 0.85))
-draxanx((0.5, 0.5))
-ax.set_xlim((0, 1))
-ax.set_ylim((0, 1))
-ax.set_xticks([])
-ax.set_yticks([])
-print("troll")
-plt.show()
+    def place_mark(self, row, col, symbol):
+        if self.grid[row, col] == ' ':
+            self.grid[row, col] = symbol
+            position = (col/3 + 1/6, 1 - (row/3 + 1/6))
+            if symbol == 'O':
+                self.draw_circle(position)
+            else:
+                self.draw_x(position)
+            return True
+        return False
+
+    def draw_circle(self, position):
+        circle = Circle(position, 0.1, color='b', fill=False, linewidth=2)
+        self.ax.add_artist(circle)
+        self.symbols.append(circle)
+
+    def draw_x(self, position):
+        x, y = position
+        cross1 = Line2D([x - 0.1, x + 0.1], [y - 0.1, y + 0.1], color='r', linewidth=3)
+        cross2 = Line2D([x - 0.1, x + 0.1], [y + 0.1, y - 0.1], color='r', linewidth=3)
+        self.ax.add_artist(cross1)
+        self.ax.add_artist(cross2)
+        self.symbols.append(cross1)
+        self.symbols.append(cross2)
+
+    def display(self):
+        plt.draw()
+        plt.pause(0.1)
+
+    def check_victory(self, symbol):
+        return (np.any(np.all(self.grid == symbol, axis=1)) or
+                np.any(np.all(self.grid == symbol, axis=0)) or
+                np.all(np.diag(self.grid) == symbol) or
+                np.all(np.diag(np.fliplr(self.grid)) == symbol))
+
+    def is_full(self):
+        return np.all(self.grid != ' ')
