@@ -1,5 +1,5 @@
 from game import Game
 
 if __name__ == "__main__":
-    jeu = Game()
-    jeu.jouer()
+    game = Game()
+    game.play()

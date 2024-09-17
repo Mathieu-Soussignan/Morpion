@@ -1,35 +1,35 @@
-import numpy as np
+
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Circle
+from matplotlib.lines import Line2D
 
-def afficher_grille(grille):
-    plt.figure(figsize=(6, 6))
-    plt.gca().add_patch(Rectangle((0, 0), 1, 1, edgecolor='black', facecolor='white', linewidth=2))
-    
-    for i in range(1, 3):
-        plt.plot([i/3, i/3], [0, 1], color='black', linewidth=2)
-        plt.plot([0, 1], [i/3, i/3], color='black', linewidth=2)
-    
-    for i in range(3):
-        for j in range(3):
-            if grille[i, j] == 'X':
-                plt.text(j/3 + 0.5/3, 1 - i/3 - 0.5/3, 'X', fontsize=24, ha='center', va='center', color='blue')
-            elif grille[i, j] == 'O':
-                plt.text(j/3 + 0.5/3, 1 - i/3 - 0.5/3, 'O', fontsize=24, ha='center', va='center', color='red')
-    
-    plt.xlim(0, 1)
-    plt.ylim(0, 1)
-    plt.gca().invert_yaxis()
-    plt.grid(False)
-    plt.show()
+#plt.figure()
+fig, ax = plt.subplots(1,1, figsize = (8,8))
+ax.plot([1/3, 1/3], [0, 1], 'k')  
+ax.plot([2/3, 2/3], [0, 1], 'k')  
+ax.plot([0, 1], [1/3, 1/3], 'k')  
+ax.plot([0, 1], [2/3, 2/3], 'k')  
+ax.axis("equal")
+symbols = []
 
-def verifier_victoire(grille, joueur):
-    for i in range(3):
-        if np.all(grille[i, :] == joueur) or np.all(grille[:, i] == joueur):
-            return True
-    if np.all(np.diag(grille) == joueur) or np.all(np.diag(np.fliplr(grille)) == joueur):
-        return True
-    return False
+def drawacircle(position):
+    Osym = Circle(position, 0.1, color='b', fill=False, linewidth=2)
+    ax.add_artist(Osym) #stack overflow dis que ca marche
+    symbols.append(Osym)
 
-def verifier_match_nul(grille):
-    return np.all(grille != ' ')
+def draxanx(position):
+    x, y = position
+    Cross1 = Line2D([x - 0.1, x + 0.1], [y - 0.1, y + 0.1], color='r', linewidth=3)
+    Cross2 = Line2D([x - 0.1, x + 0.1], [y + 0.1, y - 0.1], color='r', linewidth=3)
+    ax.add_artist(Cross1)
+    ax.add_artist(Cross2)
+    symbols.append(Cross1)
+    symbols.append(Cross2)
+drawacircle((0.85, 0.85))
+draxanx((0.5, 0.5))
+ax.set_xlim((0, 1))
+ax.set_ylim((0, 1))
+ax.set_xticks([])
+ax.set_yticks([])
+print("troll")
+plt.show()
