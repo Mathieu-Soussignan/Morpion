@@ -26,12 +26,10 @@ python main.py
 
 ## Structure du projet
 
-```bash
 	•	main.py : Le point d’entrée du programme. Ce fichier lance le jeu.
 	•	game.py : Gère la logique du jeu, le déroulement des tours, et les vérifications pour voir si un joueur a gagné ou si le match est nul.
 	•	grid.py : Responsable de la gestion de la grille (plateau de jeu), incluant la mise à jour des positions et la vérification des conditions de victoire.
 	•	player.py : Contient la logique des joueurs. Chaque joueur a un symbole (X ou O) et peut effectuer un mouvement sur la grille.
-```
 
 
 ### Fonctionnement
