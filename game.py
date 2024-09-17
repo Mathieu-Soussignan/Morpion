@@ -1,31 +1,37 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from grid import afficher_grille
-from player import player, placer_marque
-from grid import verifier_victoire, verifier_match_nul
+from grid import Grid
+from player import Player
 
 class Game:
     def __init__(self):
-        self.grille = np.full((3, 3), ' ')
-        self.joueurs = ['X', 'O']
-        self.tour = 0
+        self.grid = Grid()
+        self.players = [Player('X'), Player('O')]
+        self.current_player = 0
 
-    def jouer(self):
+    def play(self):
         while True:
-            afficher_grille(self.grille)
-            joueur_courant = self.joueurs[self.tour % 2]
-            print(f"Tour du joueur {joueur_courant}")
+            self.grid.display()
+            player = self.players[self.current_player]
+            print(f"Tour du joueur {player.symbol}")
+            
+            while True:
+                try:
+                    row, col = self.get_coordinates()
+                    if self.grid.place_mark(row, col, player.symbol):
+                        break
+                    else:
+                        print("Cette case est déjà occupée. Réessayez.")
+                except ValueError:
+                    print("Coordonnées invalides. Réessayez.")
 
-            ligne, colonne = recuperer_coordonnees(self.grille)
-            placer_marque(self.grille, ligne, colonne, joueur_courant)
-
-            if verifier_victoire(self.grille, joueur_courant):
-                afficher_grille(self.grille)
-                print(f"Le joueur {joueur_courant} a gagné !")
+            if self.grid.check_victory(player.symbol):
+                self.grid.display()
+                print(f"Le joueur {player.symbol} a gagné !")
                 break
-            elif verifier_match_nul(self.grille):
-                afficher_grille(self.grille)
+
+            if self.grid.is_full():
+                self.grid.display()
                 print("Match nul !")
                 break
 
-            self.tour += 1
+            self.current_player = (self.current_player + 1)
