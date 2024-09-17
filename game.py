@@ -35,3 +35,15 @@ class Game:
                 break
 
             self.current_player = (self.current_player + 1)
+
+    def recuperer_coordonnees(self):
+        while True:
+            try:
+                row = int(input("Entrez le numéro de ligne (0-2) : "))
+                col = int(input("Entrez le numéro de colonne (0-2 : )"))
+                if 0 <= row <= 2 and 0 <= col <= 2:
+                    return row, col
+                else:
+                    print("Les coordonnées doivent être entre 0 et 2.")
+            except ValueError:
+                print("Veuillez entrez des nombres entiers.")
