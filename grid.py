@@ -3,7 +3,7 @@ from matplotlib.patches import Circle
 from matplotlib.lines import Line2D
 
 #plt.figure()
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(1,1, figsize = (8,8))
 ax.plot([1/3, 1/3], [0, 1], 'k')  
 ax.plot([2/3, 2/3], [0, 1], 'k')  
 ax.plot([0, 1], [1/3, 1/3], 'k')  
@@ -28,5 +28,7 @@ drawacircle((0.85, 0.85))
 draxanx((0.5, 0.5))
 ax.set_xlim((0, 1))
 ax.set_ylim((0, 1))
+ax.set_xticks([])
+ax.set_yticks([])
 print("troll")
 plt.show()
