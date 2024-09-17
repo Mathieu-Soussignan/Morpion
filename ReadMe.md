@@ -13,8 +13,8 @@ Assurez-vous d'avoir Python 3.x installé sur votre machine. Vous pouvez le tél
 Clonez ce dépôt et accédez au répertoire du projet.
 
 ```bash
-git clone <lien_du_dépôt>
-cd <nom_du_projet>
+git clone https://github.com/Mathieu-Soussignan/Morpion.git
+cd Morpion
 ```
 ## Utilisation
 
