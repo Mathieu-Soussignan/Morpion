@@ -50,7 +50,7 @@ Si vous souhaitez contribuer à ce projet, merci de suivre les étapes suivantes
 ## Auteurs
 
 - Mathieu Soussignan.
-- 
--
+- Frédérick MBENG.
+- Youssef Majdane.
 
 
