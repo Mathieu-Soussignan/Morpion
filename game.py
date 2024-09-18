@@ -1,3 +1,4 @@
+import time
 import numpy as np
 from grid import Grid
 from player import Player
@@ -27,11 +28,13 @@ class Game:
             if self.grid.check_victory(player.symbol):
                 self.grid.display()
                 print(f"Le joueur {player.symbol} a gagné !")
+                self.end_game(5) # Ajout délai à la fin d'une partie avant le fermeture de la window
                 break
 
             if self.grid.is_full():
                 self.grid.display()
                 print("Match nul !")
+                self.end_game(5) # Ajout délai à la fin d'une partie avant le fermeture de la window
                 break
 
             self.current_player = (self.current_player + 1) % 2
@@ -47,3 +50,8 @@ class Game:
                     print("Les coordonnées doivent être entre 0 et 2.")
             except ValueError:
                 print("Veuillez entrez des nombres entiers.")
+    
+    def end_game(self, delay):
+        print(f"La partie se terminera dans {delay} secondes...")
+        time.sleep(delay)
+        self.grid.close()
