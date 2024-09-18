@@ -58,3 +58,6 @@ class Grid:
 
     def is_full(self):
         return np.all(self.grid != ' ')
+    
+    def close(self):
+        plt.close(self.fig)
