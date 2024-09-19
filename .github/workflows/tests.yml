@@ -32,4 +32,4 @@ jobs:
 
     - name: Run tests
       run: |
-        pystest tests_unitaires/
+        pytest tests_unitaires/
