@@ -1,2 +1,4 @@
 .venv
 .pdf
+tests_unitaires/test_game.py
+
