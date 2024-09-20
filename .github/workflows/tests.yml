@@ -1,9 +1,6 @@
 name: Test morpion
 
-# Déclenche les tests sur chaque push ou pull request sur la branche main
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
